@@ -1,0 +1,1 @@
+PCARI-VBTS Dictionary version 1.0

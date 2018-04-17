@@ -1,0 +1,45 @@
+<!-- Copyright (c) 2015-present, Philippine-California Advanced Research Institutes-
+The Village Base Station Project (PCARI-VBTS). All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+-->
+<extension name="group_create">
+    <condition field="${vbts_tp_dest_address}" expression="^200$"/>
+    <condition field="${data_0}" expression="^NEW$">
+        <action application="system"
+                data='curl http://127.0.0.1:7000/api/group/create -d "name=${data_1}&mems=${data_2}&imsi=${from_imsi}" '/>
+        <action application="system"
+                data='curl --data "from_number=${vbts_callerid}&from_name=${from_imsi}&service_type=${service_type}&destination=${vbts_tp_dest_address}" http://127.0.0.1/smscdr'/>
+    </condition>
+</extension>
+
+<extension name="group_delete">
+<condition field="${vbts_tp_dest_address}" expression="^200$"/>
+<condition field="${data_0}" expression="^DEL$">
+    <action application="system"
+            data='curl http://127.0.0.1:7000/api/group/delete -d "name=${data_1}&imsi=${from_imsi}" '/>
+    <action application="system"
+            data='curl --data "from_number=${vbts_callerid}&from_name=${from_imsi}&service_type=${service_type}&destination=${vbts_tp_dest_address}" http://127.0.0.1/smscdr'/>
+</condition>
+</extension>
+
+<extension name="group_send">
+<condition field="${vbts_tp_dest_address}" expression="^200$"/>
+<condition field="${data_0}" expression="^SEND$">
+    <action application="system"
+            data="curl http://127.0.0.1:7000/api/group/send -d 'name=${data_1}&msg=${data_2}&imsi=${from_imsi}' "/>
+    <action application="system"
+            data='curl --data "from_number=${vbts_callerid}&from_name=${from_imsi}&service_type=${service_type}&destination=${vbts_tp_dest_address}" http://127.0.0.1/smscdr'/>
+</condition>
+</extension>
+
+<extension name="group_edit">
+<condition field="${vbts_tp_dest_address}" expression="^200$"/>
+<condition field="${data_0}" expression="^EDIT$">
+    <action application="system"
+            data="curl http://127.0.0.1:7000/api/group/edit -d 'name=${data_1}&mems=${data_2}&imsi=${from_imsi}' "/>
+    <action application="system"
+            data='curl --data "from_number=${vbts_callerid}&from_name=${from_imsi}&service_type=${service_type}&destination=${vbts_tp_dest_address}" http://127.0.0.1/smscdr'/>
+</condition>
+</extension>

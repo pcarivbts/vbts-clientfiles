@@ -1,0 +1,53 @@
+<!--
+Copyright (c) 2016-present, Facebook, Inc.
+All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree. An additional grant
+of patent rights can be found in the PATENTS file in the same directory.
+-->
+
+<extension name="local_rates" continue="true">
+    <condition field="${vbts_callerid}" expression="^\d{5}\d+$"/>
+    <condition field='${vbts_destid}' expression="IMSI\d{15}">
+        <action inline="true" application="set" data="service_type=local_sms"/>
+
+        <!-- This should return any of the ff: disc_local_sms, immo_local_sms, bulk_local_sms, local_sms -->
+        <action inline="true" application="set"
+                data="service_type=${system(curl -d 'imsi=${from_imsi}&trans=local_sms&dest=${vbts_canonical_tp_dest_address}' http://127.0.0.1:7000/api/promo/getservicetype)}"/>
+
+        <!-- This is a local SMS so we don't need to pass a destination_number to VBTS_Get_Service_Tariff -->
+        <!-- action inline="true" application="set" data='call_tariff=${python(VBTS_Get_Service_Tariff ${service_type}|sms|)}'/ -->
+        <action inline="true" application="set"
+                data="call_tariff=${system(curl -d 'imsi=${from_imsi}&trans=${service_type}&dest=${vbts_canonical_tp_dest_address}' http://127.0.0.1:7000/api/promo/getservicetariff)}"/>
+
+        <!-- Get required minimum balance, that is we require a sub to have some credit in order to use promos    -->
+        <action inline="true" application="set"
+                data="req_min_balance=${system(curl -d 'tariff=${call_tariff}&trans=${service_type}' http://127.0.0.1:7000/api/promo/getminbal)}"/>
+
+
+    </condition>
+</extension>
+
+<extension name="outside_rates" continue="true">
+<condition field="${vbts_callerid}" expression="^\d{5}\d+$"/>
+<condition field="${vbts_canonical_tp_dest_address}" expression="^\+?\d+$"/>
+<condition field='${vbts_destid}' expression="^$">
+    <action inline="true" application="set" data="service_type=outside_sms"/>
+
+    <!-- This should return any of the ff: disc_local_sms, immo_local_sms, bulk_local_sms, local_sms -->
+    <action inline="true" application="set"
+            data="service_type=${system(curl -d 'imsi=${from_imsi}&trans=outside_sms&dest=${vbts_canonical_tp_dest_address}' http://127.0.0.1:7000/api/promo/getservicetype)}"/>
+
+
+    <!-- This is an outside SMS so we need to pass a destination_number to VBTS_Get_Service_Tariff -->
+    <!-- action inline="true" application="set" data='call_tariff=${python(VBTS_Get_Service_Tariff ${service_type}|sms|${vbts_canonical_tp_dest_address})}'/-->
+    <action inline="true" application="set"
+            data="call_tariff=${system(curl -d 'imsi=${from_imsi}&trans=${service_type}&dest=${vbts_canonical_tp_dest_address}' http://127.0.0.1:7000/api/promo/getservicetariff)}"/>
+
+    <!-- Get required minimum balance, that is we require a sub to have some credit in order to use promos    -->
+    <action inline="true" application="set"
+            data="req_min_balance=${system(curl -d 'tariff=${call_tariff}&trans=${service_type}' http://127.0.0.1:7000/api/promo/getminbal)}"/>
+
+</condition>
+</extension>

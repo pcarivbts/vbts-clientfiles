@@ -1,0 +1,18 @@
+{
+  "max_number_of_feeds": 10,
+  "feeds": {
+    "GMA7HEALTH": "http://www.gmanetwork.com/news/rss/lifestyle/healthandwellness",
+    "GMA7NATION": "http://www.gmanetwork.com/news/rss/news/nation",
+    "GMA7SCITECH": "http://www.gmanetwork.com/news/rss/scitech",
+    "GMA7SHOWBIZ": "http://www.gmanetwork.com/news/rss/showbiz",
+    "GMA7SPORTS": "http://www.gmanetwork.com/news/rss/sports",
+    "PHILSTAR": "http://www.philstar.com/rss/breakingnews",
+    "PSEDUCATION": "http://www.philstar.com/rss/education-and-home",
+    "PSAGRICULTURE": "http://www.philstar.com/rss/agriculture",
+    "PSHEADLINES": "http://www.philstar.com/rss/headlines",
+    "PSHEALTH": "http://www.philstar.com/rss/health-and-family",
+    "PSNATION": "http://www.philstar.com/rss/nation",
+    "PSSPORTS": "http://www.philstar.com/rss/sports",
+    "RAPPLER": "http://feeds.feedburner.com/rappler"
+  }
+}

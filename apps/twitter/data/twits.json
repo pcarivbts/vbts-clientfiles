@@ -1,0 +1,23 @@
+{
+  "TWITTER_CONSUMER_KEY": "consumer_key",
+  "TWITTER_CONSUMER_SECRET": "consumer_secret",
+  "TWITTER_TOKEN": "token",
+  "TWITTER_TOKEN_SECRET": "token_secret",
+  "include_rts": false,
+  "max_number_of_tweets": 5,
+  "locations": {
+    "WORLDWIDE": 1,
+    "PH": 23424934,
+    "CALOOCAN": 1167715,
+    "MAKATI": 1180689,
+    "PASIG": 1187115,
+    "TAGUIG": 1187115,
+    "ANTIPOLO": 1195098,
+    "CDO": 1198785,
+    "CEBU": 1199002,
+    "DAVAO": 1199079,
+    "MANILA": 1199477,
+    "QC": 1199682,
+    "ZAMBOANGA": 11999802
+  }
+}

@@ -1,0 +1,42 @@
+<!-- Copyright (c) 2015-present, Philippine-California Advanced Research Institutes-
+The Village Base Station Project (PCARI-VBTS). All rights reserved.
+
+This source code is licensed under the BSD-style license found in the
+LICENSE file in the root directory of this source tree.
+-->
+<extension name="promo_status">
+    <condition field="${vbts_tp_dest_address}" expression="^555$"/>
+    <condition field="${data_0}" expression="^STATUS$">
+        <action application="system"
+                data='curl http://127.0.0.1:7000/api/promo/status -d "imsi=${from_imsi}&keyword=${data_1}" '/>
+        <action application="system"
+                data='curl --data "from_number=${vbts_callerid}&from_name=${from_imsi}&service_type=${service_type}&destination=${vbts_tp_dest_address}" http://127.0.0.1/smscdr'/>
+    </condition>
+</extension>
+
+<extension name="promo_unsubscribe">
+<condition field="${vbts_tp_dest_address}" expression="^555$"/>
+<condition field="${data_0}" expression="^REMOVE$">
+    <action application="system"
+            data='curl http://127.0.0.1:7000/api/promo/unsubscribe -d "imsi=${from_imsi}&keyword=${data_1}" '/>
+    <action application="system"
+            data='curl --data "from_number=${vbts_callerid}&from_name=${from_imsi}&service_type=${service_type}&destination=${vbts_tp_dest_address}" http://127.0.0.1/smscdr'/>
+</condition>
+</extension>
+
+<extension name="promo_info">
+<condition field="${vbts_tp_dest_address}" expression="^555$"/>
+<condition field="${data_0}" expression="^INFO$">
+    <action application="system"
+            data='curl http://127.0.0.1:7000/api/promo/info -d "imsi=${from_imsi}&keyword=${data_1}" '/>
+    <action application="system"
+            data='curl --data "from_number=${vbts_callerid}&from_name=${from_imsi}&service_type=${service_type}&destination=${vbts_tp_dest_address}" http://127.0.0.1/smscdr'/>
+</condition>
+</extension>
+
+        <!--extension name="promo_subscribe" -->
+        <!--condition field="${vbts_tp_dest_address}" expression="^555$"-->
+        <!--action application="system" data='curl http://127.0.0.1:7000/api/promo/subscribe -d "imsi=${from_imsi}&keyword=${data_0}" '/-->
+        <!--action application="system" data='curl --data "from_number=${vbts_callerid}&from_name=${from_imsi}&service_type=${service_type}&destination=${vbts_tp_dest_address}" http://127.0.0.1/smscdr'/-->
+        <!--/condition-->
+        <!--/extension-->

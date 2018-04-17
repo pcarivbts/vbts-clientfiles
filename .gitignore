@@ -1,0 +1,7 @@
+/.pydevproject
+/.project
+/.idea/*
+/packages/pcaridictionary-1.0.tar.gz
+/packages/pcarifilereader-1.0.tar.gz
+/packages/pcarirss-1.0.tar.gz
+/packages/pcaritwits-1.0.tar.gz

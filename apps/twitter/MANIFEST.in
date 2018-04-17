@@ -1,0 +1,3 @@
+include README.md
+recursive-include fs_script * 
+recursive-include data * 
